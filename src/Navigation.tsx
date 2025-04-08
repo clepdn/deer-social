@@ -137,6 +137,7 @@ import {useAccountSwitcher} from './lib/hooks/useAccountSwitcher'
 import {useNonReactiveCallback} from './lib/hooks/useNonReactiveCallback'
 import {useLoggedOutViewControls} from './state/shell/logged-out'
 import {useCloseAllActiveElements} from './state/util'
+import {DeerSettingsScreen} from './screens/Settings/DeerSettings'
 
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>()
 
@@ -380,6 +381,14 @@ function commonScreens(Stack: typeof Flat, unreadCountLabel?: string) {
         getComponent={() => AccessibilitySettingsScreen}
         options={{
           title: title(msg`Accessibility Settings`),
+          requireAuth: true,
+        }}
+      />
+      <Stack.Screen
+        name="DeerSettings"
+        getComponent={() => DeerSettingsScreen}
+        options={{
+          title: title(msg`Deer Settings`),
           requireAuth: true,
         }}
       />
