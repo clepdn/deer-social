@@ -17,12 +17,8 @@ import {isNative} from '#/platform/detection'
 import {ENV} from '#/env'
 
 const TRANSPORTS: Transport[] = (function configureTransports() {
-  switch (ENV) {
-    case 'production': {
-      return [sentryTransport, isNative && bitdriftTransport].filter(
-        Boolean,
-      ) as Transport[]
-    }
+  switch (process.env.NODE_ENV) {
+    case 'production':
     case 'test': {
       return []
     }
