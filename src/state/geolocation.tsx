@@ -1,7 +1,6 @@
 import React from 'react'
 import EventEmitter from 'eventemitter3'
 
-import {networkRetry} from '#/lib/async/retry'
 import {logger} from '#/logger'
 import {type Device, device} from '#/storage'
 
@@ -53,9 +52,9 @@ async function getGeolocation(url: string): Promise<Device['geolocation']> {
 
   if (json.countryCode) {
     return {
-      countryCode: json.countryCode,
-      isAgeBlockedGeo: json.isAgeBlockedGeo ?? false,
-      isAgeRestrictedGeo: json.isAgeRestrictedGeo ?? false,
+      countryCode: 'US',
+      isAgeBlockedGeo: false,
+      isAgeRestrictedGeo: false,
       // @ts-ignore
       regionCode: json.regionCode ?? undefined,
     }
@@ -108,13 +107,12 @@ export function beginResolveGeolocation() {
    * In dev, IP server is unavailable, so we just set the default geolocation
    * and fail closed.
    */
-  if (__DEV__) {
     geolocationResolution = new Promise(y => y({success: true}))
     if (!device.get(['geolocation'])) {
       device.set(['geolocation'], DEFAULT_GEOLOCATION)
     }
     return
-  }
+}
 
   geolocationResolution = new Promise(async resolve => {
     let success = true
@@ -163,6 +161,10 @@ export function beginResolveGeolocation() {
       resolve({success})
     }
   })
+
+export function setGeolocation(geolocation: Device['geolocation']) {
+  device.set(['geolocation'], geolocation)
+  emitGeolocationUpdate(geolocation)
 }
 
 /**
