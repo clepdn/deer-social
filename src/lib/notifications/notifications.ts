@@ -12,6 +12,7 @@ import {useAgeAssuranceContext} from '#/state/ageAssurance'
 import {type SessionAccount, useAgent, useSession} from '#/state/session'
 import BackgroundNotificationHandler from '#/../modules/expo-background-notification-handler'
 
+
 /**
  * @private
  * Registers the device's push notification token with the Bluesky server.
@@ -36,8 +37,8 @@ async function _registerPushToken({
         : PUBLIC_APPVIEW_DID,
       platform: Platform.OS,
       token: token.data,
-      appId: 'xyz.blueskyweb.app',
-      ageRestricted: extra.ageRestricted ?? false,
+      appId: 'social.deer',
+      ageRestricted: false,
     }
 
     notyLogger.debug(`registerPushToken: registering`, {...payload})
