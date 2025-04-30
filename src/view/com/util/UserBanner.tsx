@@ -1,10 +1,15 @@
 import {useCallback, useState} from 'react'
-import {Pressable, StyleSheet, View} from 'react-native'
+import {Pressable, StyleSheet, TouchableWithoutFeedback, View} from 'react-native'
+import {type Image as RNImage} from 'react-native-image-crop-picker'
+import {
+  type MeasuredDimensions,
+  runOnJS,
+  runOnUI,
+} from 'react-native-reanimated'
 import {Image} from 'expo-image'
 import {type ModerationUI} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
-
 import {
   useCameraPermission,
   usePhotoLibraryPermission,
@@ -50,6 +55,9 @@ export function UserBanner({
   const sheetWrapper = useSheetWrapper()
   const [rawImage, setRawImage] = useState<ComposerImage | undefined>()
   const editImageDialogControl = useDialogControl()
+  const {openLightbox} = useLightboxControls()
+
+  const bannerRef = useHandleRef()
 
   const onOpenCamera = useCallback(async () => {
     if (!(await requestCameraAccessIfNeeded())) {
@@ -110,6 +118,36 @@ export function UserBanner({
     },
     [onSelectNewBanner],
   )
+
+  const _openLightbox = useCallback(
+    (uri: string, thumbRect: MeasuredDimensions | null) => {
+      openLightbox({
+        images: [
+          {
+            uri,
+            thumbUri: uri,
+            thumbRect,
+            dimensions: thumbRect,
+            thumbDimensions: null,
+            type: 'image',
+          },
+        ],
+        index: 0,
+      })
+    },
+    [openLightbox],
+  )
+
+  const onPressBanner = useCallback(() => {
+    if (banner && !(moderation?.blur && moderation?.noOverride)) {
+      const bannerHandle = bannerRef.current
+      runOnUI(() => {
+        'worklet'
+        const rect = measureHandle(bannerHandle)
+        runOnJS(_openLightbox)(banner, rect)
+      })()
+    }
+  }, [banner, moderation, _openLightbox, bannerRef])
 
   // setUserBanner is only passed as prop on the EditProfile component
   return onSelectNewBanner ? (
@@ -206,15 +244,25 @@ export function UserBanner({
     </>
   ) : banner &&
     !((moderation?.blur && isAndroid) /* android crashes with blur */) ? (
-    <Image
-      testID="userBannerImage"
-      style={[styles.bannerImage, t.atoms.bg_contrast_25]}
-      contentFit="cover"
-      source={{uri: banner}}
-      blurRadius={moderation?.blur ? 100 : 0}
-      accessible={true}
-      accessibilityIgnoresInvertColors
-    />
+    <TouchableWithoutFeedback
+      testID="profileHeaderAviButton"
+      onPress={onPressBanner}
+      accessibilityRole="image"
+      accessibilityLabel={_(msg`View profile banner`)}
+      accessibilityHint="">
+      <Image
+        testID="userBannerImage"
+        style={[
+          styles.bannerImage,
+          {backgroundColor: theme.palette.default.backgroundLight},
+        ]}
+        contentFit="cover"
+        source={{uri: banner}}
+        blurRadius={moderation?.blur ? 100 : 0}
+        accessible={true}
+        accessibilityIgnoresInvertColors
+      />
+    </TouchableWithoutFeedback>
   ) : (
     <View
       testID="userBannerFallback"
