@@ -2,6 +2,7 @@ import {View} from 'react-native'
 import {type AppBskyActorDefs} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
+
 import {isInvalidHandle, sanitizeHandle} from '#/lib/strings/handles'
 import {isIOS, isNative} from '#/platform/detection'
 import {type Shadow} from '#/state/cache/types'
@@ -56,14 +57,6 @@ export function ProfileHeaderHandle({
             unicodeBidi: 'isolate',
           }),
         ]}>
-        {invalidHandle
-          ? _(msg`⚠Invalid Handle`)
-          : sanitizeHandle(
-              profile.handle,
-              '@',
-              // forceLTR handled by CSS above on web
-              isNative,
-            )}
         {invalidHandle ? (
           _(msg`⚠Invalid Handle`)
         ) : showProfileInHandle && !isBskySocialHandle ? (
@@ -71,19 +64,11 @@ export function ProfileHeaderHandle({
             to={`https://${profile.handle}`}
             label={profile.handle}>
             <Text style={[a.text_md, {color: t.palette.primary_500}]}>
-	    	{sanitizeHandle(
-			profile.handle,
-			'@', 
-			isNative
-		)}
+              {sanitizeHandle(profile.handle, '@', isNative)}
             </Text>
           </InlineLinkText>
         ) : (
-		sanitizeHandle(
-			profile.handle,
-			'@', 
-			isNative
-		)
+          sanitizeHandle(profile.handle, '@', isNative)
         )}
       </Text>
     </View>

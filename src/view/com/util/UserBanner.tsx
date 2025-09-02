@@ -1,15 +1,22 @@
 import {useCallback, useState} from 'react'
-import {Pressable, StyleSheet, TouchableWithoutFeedback, View} from 'react-native'
-import {type Image as RNImage} from 'react-native-image-crop-picker'
 import {
+  Pressable,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native'
+import {
+  measure,
   type MeasuredDimensions,
   runOnJS,
   runOnUI,
+  useAnimatedRef,
 } from 'react-native-reanimated'
 import {Image} from 'expo-image'
 import {type ModerationUI} from '@atproto/api'
 import {msg, Trans} from '@lingui/macro'
 import {useLingui} from '@lingui/react'
+
 import {
   useCameraPermission,
   usePhotoLibraryPermission,
@@ -24,6 +31,7 @@ import {
   compressImage,
   createComposerImage,
 } from '#/state/gallery'
+import {useLightboxControls} from '#/state/lightbox'
 import {EditImageDialog} from '#/view/com/composer/photos/EditImageDialog'
 import {EventStopper} from '#/view/com/util/EventStopper'
 import {atoms as a, tokens, useTheme} from '#/alf'
@@ -57,7 +65,7 @@ export function UserBanner({
   const editImageDialogControl = useDialogControl()
   const {openLightbox} = useLightboxControls()
 
-  const bannerRef = useHandleRef()
+  const bannerRef = useAnimatedRef()
 
   const onOpenCamera = useCallback(async () => {
     if (!(await requestCameraAccessIfNeeded())) {
@@ -141,9 +149,10 @@ export function UserBanner({
   const onPressBanner = useCallback(() => {
     if (banner && !(moderation?.blur && moderation?.noOverride)) {
       const bannerHandle = bannerRef.current
+      if (!bannerHandle) return
       runOnUI(() => {
         'worklet'
-        const rect = measureHandle(bannerHandle)
+        const rect = measure(bannerHandle)
         runOnJS(_openLightbox)(banner, rect)
       })()
     }
@@ -252,10 +261,7 @@ export function UserBanner({
       accessibilityHint="">
       <Image
         testID="userBannerImage"
-        style={[
-          styles.bannerImage,
-          {backgroundColor: theme.palette.default.backgroundLight},
-        ]}
+        style={[styles.bannerImage, t.atoms.bg_contrast_25]}
         contentFit="cover"
         source={{uri: banner}}
         blurRadius={moderation?.blur ? 100 : 0}
