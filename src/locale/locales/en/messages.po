@@ -490,10 +490,6 @@ msgstr ""
 msgid "<0>{date}</0> at {time}"
 msgstr ""
 
-#: src/screens/Settings/NotificationSettings.tsx:85
-msgid "<0>Experimental:</0> When this preference is enabled, you'll only receive reply and quote notifications from users you follow. We'll continue to add more controls here over time."
-msgstr ""
-
 #: src/screens/Search/SearchResults.tsx:255
 msgid "<0>Sign in</0><1> or </1><2>create an account</2><3> </3><4>to search for news, sports, politics, and everything else happening on Bluesky.</4>"
 msgstr ""
@@ -502,8 +498,7 @@ msgstr ""
 msgid "<0>You</0> and<1> </1><2>{0} </2>are included in your starter pack"
 msgstr ""
 
-#: src/screens/Profile/Header/Handle.tsx:60
-#: src/screens/Profile/Header/Handle.tsx:68
+#: src/screens/Profile/Header/Handle.tsx:61
 msgid "⚠Invalid Handle"
 msgstr ""
 
@@ -2986,7 +2981,7 @@ msgid "Edit"
 msgstr ""
 
 #: src/view/com/util/UserAvatar.tsx:439
-#: src/view/com/util/UserBanner.tsx:157
+#: src/view/com/util/UserBanner.tsx:166
 msgid "Edit avatar"
 msgstr ""
 
@@ -3160,11 +3155,6 @@ msgstr ""
 
 #: src/screens/Settings/NotificationSettings/ActivityNotificationSettings.tsx:139
 msgid "Enable notifications for an account by visiting their profile and pressing the <0>bell icon</0> <1/>."
-msgstr ""
-
-#: src/screens/Settings/NotificationSettings.tsx:74
-#: src/screens/Settings/NotificationSettings.tsx:77
-msgid "Enable priority notifications"
 msgstr ""
 
 #: src/screens/Settings/NotificationSettings/index.tsx:102
@@ -3903,7 +3893,7 @@ msgstr ""
 msgid "Following Feed Preferences"
 msgstr ""
 
-#: src/screens/Profile/Header/Handle.tsx:35
+#: src/screens/Profile/Header/Handle.tsx:36
 msgid "Follows you"
 msgstr ""
 
@@ -5801,10 +5791,6 @@ msgstr ""
 msgid "Nothing here"
 msgstr ""
 
-#: src/screens/Settings/NotificationSettings.tsx:64
-msgid "Notification filters"
-msgstr ""
-
 #: src/screens/Settings/DeerSettings.tsx:529
 msgid "Notification Filters"
 msgstr ""
@@ -5813,10 +5799,6 @@ msgstr ""
 #: src/Navigation.tsx:577
 #: src/view/screens/Notifications.tsx:136
 msgid "Notification settings"
-msgstr ""
-
-#: src/screens/Settings/NotificationSettings.tsx:46
-msgid "Notification Settings"
 msgstr ""
 
 #: src/screens/Messages/Settings.tsx:139
@@ -5971,7 +5953,6 @@ msgstr ""
 #: src/components/StarterPack/ProfileStarterPacks.tsx:341
 #: src/screens/Settings/AppPasswords.tsx:59
 #: src/screens/Settings/components/ChangeHandleDialog.tsx:106
-#: src/screens/Settings/NotificationSettings.tsx:54
 #: src/view/screens/Profile.tsx:125
 msgid "Oops!"
 msgstr ""
@@ -6658,10 +6639,6 @@ msgstr ""
 msgid "Prioritize your Follows"
 msgstr ""
 
-#: src/screens/Settings/NotificationSettings.tsx:67
-msgid "Priority notifications"
-msgstr ""
-
 #: src/view/shell/desktop/RightNav.tsx:114
 #: src/view/shell/desktop/RightNav.tsx:115
 msgid "Privacy"
@@ -6969,8 +6946,8 @@ msgstr ""
 msgid "Remove Avatar"
 msgstr ""
 
-#: src/view/com/util/UserBanner.tsx:224
-#: src/view/com/util/UserBanner.tsx:227
+#: src/view/com/util/UserBanner.tsx:233
+#: src/view/com/util/UserBanner.tsx:236
 msgid "Remove Banner"
 msgstr ""
 
@@ -8361,7 +8338,6 @@ msgid "Something went wrong, please try again."
 msgstr ""
 
 #: src/components/Lists.tsx:175
-#: src/screens/Settings/NotificationSettings.tsx:55
 msgid "Something went wrong!"
 msgstr ""
 
@@ -9607,20 +9583,20 @@ msgstr ""
 
 #: src/view/com/util/UserAvatar.tsx:469
 #: src/view/com/util/UserAvatar.tsx:472
-#: src/view/com/util/UserBanner.tsx:195
-#: src/view/com/util/UserBanner.tsx:198
+#: src/view/com/util/UserBanner.tsx:204
+#: src/view/com/util/UserBanner.tsx:207
 msgid "Upload from Camera"
 msgstr ""
 
 #: src/view/com/util/UserAvatar.tsx:486
-#: src/view/com/util/UserBanner.tsx:212
+#: src/view/com/util/UserBanner.tsx:221
 msgid "Upload from Files"
 msgstr ""
 
 #: src/view/com/util/UserAvatar.tsx:480
 #: src/view/com/util/UserAvatar.tsx:484
-#: src/view/com/util/UserBanner.tsx:206
-#: src/view/com/util/UserBanner.tsx:210
+#: src/view/com/util/UserBanner.tsx:215
+#: src/view/com/util/UserBanner.tsx:219
 msgid "Upload from Library"
 msgstr ""
 
@@ -9990,7 +9966,7 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
-#: src/view/com/util/UserBanner.tsx:251
+#: src/view/com/util/UserBanner.tsx:260
 msgid "View profile banner"
 msgstr ""
 
